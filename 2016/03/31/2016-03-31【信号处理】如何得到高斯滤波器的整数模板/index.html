@@ -1,0 +1,758 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="信号处理," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="迁移自CSDN:【信号、图像、Matlab】如何得到高斯滤波器的整数模板 如何得到高斯滤波器的整数模板？ 这个问题困扰了我两天，上网搜索的代码，基本上都生成的小数，有的文档给写了33，55，77的整数形式，但是没有说是怎么得到的，应该说是我没有仔细看吧，现在恍然大悟，*只要将左上角的元素化为1就可以了啊。我还以为用什么高级方法得出来的，晕死了。">
+<meta name="keywords" content="信号处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【信号处理】如何得到高斯滤波器的整数模板">
+<meta property="og:url" content="http://shanchuantian.com/2016/03/31/2016-03-31【信号处理】如何得到高斯滤波器的整数模板/index.html">
+<meta property="og:site_name" content="你干吗在乎别人怎么想">
+<meta property="og:description" content="迁移自CSDN:【信号、图像、Matlab】如何得到高斯滤波器的整数模板 如何得到高斯滤波器的整数模板？ 这个问题困扰了我两天，上网搜索的代码，基本上都生成的小数，有的文档给写了33，55，77的整数形式，但是没有说是怎么得到的，应该说是我没有仔细看吧，现在恍然大悟，*只要将左上角的元素化为1就可以了啊。我还以为用什么高级方法得出来的，晕死了。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.blog.csdn.net/20160331104811496">
+<meta property="og:image" content="http://img.blog.csdn.net/20160331104843825">
+<meta property="og:image" content="http://img.blog.csdn.net/20160331105009216">
+<meta property="og:image" content="http://img.blog.csdn.net/20160331105326467">
+<meta property="og:image" content="http://img.blog.csdn.net/20160331105349561">
+<meta property="og:image" content="http://img.blog.csdn.net/20160331105538390">
+<meta property="og:image" content="http://img.blog.csdn.net/20160331105754938">
+<meta property="og:image" content="http://img.blog.csdn.net/20160331105805938">
+<meta property="og:image" content="http://img.blog.csdn.net/20160331105814875">
+<meta property="og:updated_time" content="2016-10-03T11:25:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【信号处理】如何得到高斯滤波器的整数模板">
+<meta name="twitter:description" content="迁移自CSDN:【信号、图像、Matlab】如何得到高斯滤波器的整数模板 如何得到高斯滤波器的整数模板？ 这个问题困扰了我两天，上网搜索的代码，基本上都生成的小数，有的文档给写了33，55，77的整数形式，但是没有说是怎么得到的，应该说是我没有仔细看吧，现在恍然大悟，*只要将左上角的元素化为1就可以了啊。我还以为用什么高级方法得出来的，晕死了。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160331104811496">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://shanchuantian.com/2016/03/31/2016-03-31【信号处理】如何得到高斯滤波器的整数模板/"/>
+
+
+  <title> 【信号处理】如何得到高斯滤波器的整数模板 | 你干吗在乎别人怎么想 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">你干吗在乎别人怎么想</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【信号处理】如何得到高斯滤波器的整数模板
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-31T19:05:52+08:00" content="2016-03-31">
+              2016-03-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/信号处理/" itemprop="url" rel="index">
+                    <span itemprop="name">信号处理</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/31/2016-03-31【信号处理】如何得到高斯滤波器的整数模板/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/31/2016-03-31【信号处理】如何得到高斯滤波器的整数模板/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>迁移自CSDN:<a href="http://blog.csdn.net/shanchuan2012/article/details/51024550" target="_blank" rel="noopener">【信号、图像、Matlab】如何得到高斯滤波器的整数模板</a></p>
+<p>如何得到高斯滤波器的整数模板？</p>
+<p>这个问题困扰了我两天，上网搜索的代码，基本上都生成的小数，有的文档给写了3<em>3，5</em>5，7<em>7的整数形式，但是没有说是怎么得到的，应该说是我没有仔细看吧，现在恍然大悟，<em>*只要将左上角的元素化为1就可以了啊</em></em>。我还以为用什么高级方法得出来的，晕死了。</p>
+<a id="more"></a>
+<h2 id="二维高斯分布公式："><a href="#二维高斯分布公式：" class="headerlink" title="二维高斯分布公式："></a>二维高斯分布公式：</h2><p><img src="http://img.blog.csdn.net/20160331104811496" alt="二维高斯分布公式"></p>
+<p>要得到高斯滤波器的整数模板就要从这个公式入手，这个公式在三维坐标下的形式是这样的：</p>
+<p><img src="http://img.blog.csdn.net/20160331104843825" alt="这里写图片描述"></p>
+<p>我们要的高斯滤波器的整数模板相当于这个三维图形在底面（将底面网格化，也就是离散化，计算机不能处理连续的东东）的投影，将曲面的高度换算成网格里面的值，这是我们要的模板了。</p>
+<h2 id="计算整数模板的公式"><a href="#计算整数模板的公式" class="headerlink" title="计算整数模板的公式"></a>计算整数模板的公式</h2><p>假设我们的模板放在矩阵M中，M的大小为(2k+1)*( 2k+1)，那么M（i,j）的值为：</p>
+<p><img src="http://img.blog.csdn.net/20160331105009216" alt="这里写图片描述"></p>
+<p>说明：这就是由连续公式得到的，只不过这里的M是一个矩阵，<strong>原点在矩阵的中间</strong>，所以有（i-k-1）以及(j-k-1)为的就是让原点到矩阵中间。</p>
+<h2 id="一个Matlab代码"><a href="#一个Matlab代码" class="headerlink" title="一个Matlab代码"></a>一个Matlab代码</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">clear;</span><br><span class="line">k=<span class="number">1</span>;              <span class="comment">%模板长度的一半</span></span><br><span class="line">row = <span class="number">2</span>*k+<span class="number">1</span>;      <span class="comment">%模板长度</span></span><br><span class="line">col = <span class="number">2</span>*k+<span class="number">1</span>;</span><br><span class="line">sigma2=<span class="number">1</span>;         <span class="comment">%方差</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span> : row</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span> : col</span><br><span class="line">        fenzi=double((<span class="built_in">i</span>-k<span class="number">-1</span>)^<span class="number">2</span>+(<span class="built_in">j</span>-k<span class="number">-1</span>)^<span class="number">2</span>);</span><br><span class="line">        A(<span class="built_in">i</span>,<span class="built_in">j</span>)=<span class="built_in">exp</span>(-fenzi/(<span class="number">2</span>*sigma2))/(<span class="number">2</span>*<span class="built_in">pi</span>*sigma2);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">A                           <span class="comment">%显示小数形式</span></span><br><span class="line">C=<span class="built_in">floor</span>(A.*(<span class="number">1</span>/A(<span class="number">1</span>,<span class="number">1</span>)));      <span class="comment">%左上角化为1（想了很久整数是怎么得出来的，只要这样就可以了，郁闷）</span></span><br></pre></td></tr></table></figure>
+<p>这个代码得到的是一个7*7,sigma=1高斯滤波器的小数和整数模板，如下：</p>
+<p>小数:</p>
+<p><img src="http://img.blog.csdn.net/20160331105326467" alt="这里写图片描述"></p>
+<p>整数:</p>
+<p><img src="http://img.blog.csdn.net/20160331105349561" alt="这里写图片描述"></p>
+<p>当时想了很久怎样才能得到整数形式的模板，无意间从网上看了将左上角的元素化为1就可以了，我只能说自己的脑壳真是迟钝啊。</p>
+<h2 id="要说明的两点"><a href="#要说明的两点" class="headerlink" title="要说明的两点"></a>要说明的两点</h2><ul>
+<li>上面的整数模板要用于滤波的话，需要<strong>归一化</strong>，就是在整个模板的前面加一个系数，这个系数是：1/(所有整数总和).</li>
+<li>生成的模板，与公式里的一个东西有关：<strong>sigma</strong>，这对生成的模板数个影响很大。这里给一张不同sigma的一维高斯分布图，二维的类似，理解sigma取值对函数图形的影响就可以了：</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20160331105538390" alt="这里写图片描述"></p>
+<p><strong>Sigma越大，分布越集中。</strong></p>
+<h2 id="再给几个不同大小，不同sigma的整数模板"><a href="#再给几个不同大小，不同sigma的整数模板" class="headerlink" title="再给几个不同大小，不同sigma的整数模板"></a>再给几个不同大小，不同sigma的整数模板</h2><p><img src="http://img.blog.csdn.net/20160331105754938" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20160331105805938" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20160331105814875" alt="这里写图片描述"></p>
+<p>之所以放这几个模板，可以发现，sigma的取值对模板的影响很大，所以如何取sigma，这应该是个经验性的问题。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/信号处理/" rel="tag">#信号处理</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/27/2016-03-27【GPS】如何理解轨道倾角大于90/" rel="next" title="【GPS】如何理解轨道倾角大于90">
+                <i class="fa fa-chevron-left"></i> 【GPS】如何理解轨道倾角大于90
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/10/2016-04-10【Python】matplotlib生成散点矩阵图/" rel="prev" title="【Python】matplotlib生成散点矩阵图">
+                【Python】matplotlib生成散点矩阵图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/31/2016-03-31【信号处理】如何得到高斯滤波器的整数模板/"
+           data-title="【信号处理】如何得到高斯滤波器的整数模板" data-url="http://shanchuantian.com/2016/03/31/2016-03-31【信号处理】如何得到高斯滤波器的整数模板/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="itsc" />
+          <p class="site-author-name" itemprop="name">itsc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shanchuantian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/shanchuantian/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-film"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/shanchuantian" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#二维高斯分布公式："><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4E8C;&#x7EF4;&#x9AD8;&#x65AF;&#x5206;&#x5E03;&#x516C;&#x5F0F;&#xFF1A;" class="headerlink" title="&#x4E8C;&#x7EF4;&#x9AD8;&#x65AF;&#x5206;&#x5E03;&#x516C;&#x5F0F;&#xFF1A;"></a>&#x4E8C;&#x7EF4;&#x9AD8;&#x65AF;&#x5206;&#x5E03;&#x516C;&#x5F0F;&#xFF1A;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算整数模板的公式"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x8BA1;&#x7B97;&#x6574;&#x6570;&#x6A21;&#x677F;&#x7684;&#x516C;&#x5F0F;" class="headerlink" title="&#x8BA1;&#x7B97;&#x6574;&#x6570;&#x6A21;&#x677F;&#x7684;&#x516C;&#x5F0F;"></a>&#x8BA1;&#x7B97;&#x6574;&#x6570;&#x6A21;&#x677F;&#x7684;&#x516C;&#x5F0F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个Matlab代码"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x4E00;&#x4E2A;Matlab&#x4EE3;&#x7801;" class="headerlink" title="&#x4E00;&#x4E2A;Matlab&#x4EE3;&#x7801;"></a>&#x4E00;&#x4E2A;Matlab&#x4EE3;&#x7801;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要说明的两点"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x8981;&#x8BF4;&#x660E;&#x7684;&#x4E24;&#x70B9;" class="headerlink" title="&#x8981;&#x8BF4;&#x660E;&#x7684;&#x4E24;&#x70B9;"></a>&#x8981;&#x8BF4;&#x660E;&#x7684;&#x4E24;&#x70B9;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再给几个不同大小，不同sigma的整数模板"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x518D;&#x7ED9;&#x51E0;&#x4E2A;&#x4E0D;&#x540C;&#x5927;&#x5C0F;&#xFF0C;&#x4E0D;&#x540C;sigma&#x7684;&#x6574;&#x6570;&#x6A21;&#x677F;" class="headerlink" title="&#x518D;&#x7ED9;&#x51E0;&#x4E2A;&#x4E0D;&#x540C;&#x5927;&#x5C0F;&#xFF0C;&#x4E0D;&#x540C;sigma&#x7684;&#x6574;&#x6570;&#x6A21;&#x677F;"></a>&#x518D;&#x7ED9;&#x51E0;&#x4E2A;&#x4E0D;&#x540C;&#x5927;&#x5C0F;&#xFF0C;&#x4E0D;&#x540C;sigma&#x7684;&#x6574;&#x6570;&#x6A21;&#x677F;</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">itsc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shanchuancomment"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+
+</body>
+</html>

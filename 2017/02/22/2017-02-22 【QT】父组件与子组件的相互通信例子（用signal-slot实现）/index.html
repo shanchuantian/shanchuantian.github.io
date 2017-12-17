@@ -1,0 +1,753 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="QT," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="目标新建一个QMainWindow窗口，在该窗口中添加一个打开按钮，一个spinBox，点击打开按钮后弹出一个对话框，对话框里面有一个slider。改变slider后spinBox的值会改变，改变spinBox后slider的值会改变，变动值范围：0-130.">
+<meta name="keywords" content="QT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【QT】父组件与子组件的相互通信例子（用signal-slot实现）">
+<meta property="og:url" content="http://shanchuantian.com/2017/02/22/2017-02-22 【QT】父组件与子组件的相互通信例子（用signal-slot实现）/index.html">
+<meta property="og:site_name" content="你干吗在乎别人怎么想">
+<meta property="og:description" content="目标新建一个QMainWindow窗口，在该窗口中添加一个打开按钮，一个spinBox，点击打开按钮后弹出一个对话框，对话框里面有一个slider。改变slider后spinBox的值会改变，改变spinBox后slider的值会改变，变动值范围：0-130.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/02/22/slider/slider.gif">
+<meta property="og:updated_time" content="2017-03-01T08:46:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【QT】父组件与子组件的相互通信例子（用signal-slot实现）">
+<meta name="twitter:description" content="目标新建一个QMainWindow窗口，在该窗口中添加一个打开按钮，一个spinBox，点击打开按钮后弹出一个对话框，对话框里面有一个slider。改变slider后spinBox的值会改变，改变spinBox后slider的值会改变，变动值范围：0-130.">
+<meta name="twitter:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/02/22/slider/slider.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://shanchuantian.com/2017/02/22/2017-02-22 【QT】父组件与子组件的相互通信例子（用signal-slot实现）/"/>
+
+
+  <title> 【QT】父组件与子组件的相互通信例子（用signal-slot实现） | 你干吗在乎别人怎么想 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">你干吗在乎别人怎么想</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【QT】父组件与子组件的相互通信例子（用signal-slot实现）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-22T00:00:00+08:00" content="2017-02-22">
+              2017-02-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/QT/" itemprop="url" rel="index">
+                    <span itemprop="name">QT</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/22/2017-02-22 【QT】父组件与子组件的相互通信例子（用signal-slot实现）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/22/2017-02-22 【QT】父组件与子组件的相互通信例子（用signal-slot实现）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><p>新建一个QMainWindow窗口，在该窗口中添加一个打开按钮，一个spinBox，点击打开按钮后弹出一个对话框，对话框里面有一个slider。改变slider后spinBox的值会改变，改变spinBox后slider的值会改变，变动值范围：0-130.</p>
+<a id="more"></a>
+<p>实现后是下图这样的：</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/02/22/slider/slider.gif" alt=""></p>
+<p>代码在：<a href="http://download.csdn.net/detail/shanchuan2012/9761160" target="_blank" rel="noopener">【QT】父组件与子组件的相互通信例子（用signal-slot实现）</a></p>
+<p>环境：</p>
+<ul>
+<li>win7 64</li>
+<li>vs2013</li>
+<li>qt5.6.0 32</li>
+<li>qt add in 1.2.5</li>
+</ul>
+<p>工程中有如下文件：</p>
+<ul>
+<li>hello.h</li>
+<li>Mydialog.h</li>
+<li>hello.cpp</li>
+<li>Mydialog.cpp</li>
+<li>main.cpp</li>
+</ul>
+<h1 id="每个文件的内容"><a href="#每个文件的内容" class="headerlink" title="每个文件的内容"></a>每个文件的内容</h1><p>代码在：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">hello.h</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtWidgets/QMainWindow&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"ui_hello.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Mydialog.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qspinbox.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hello</span> :</span> <span class="keyword">public</span> QMainWindow</span><br><span class="line">&#123;</span><br><span class="line">	Q_OBJECT</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Hello(QWidget *parent = <span class="number">0</span>);</span><br><span class="line">	~Hello();</span><br><span class="line">signals:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">sendMsg2</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Ui::HelloClass ui;</span><br><span class="line">	<span class="comment">// 添加</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">open</span><span class="params">()</span></span>;				<span class="comment">//打开dialog</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setSpinBox</span><span class="params">(<span class="keyword">int</span> value)</span></span>; </span><br><span class="line">	QAction *openAction;</span><br><span class="line">	Mydialog *dialog;</span><br><span class="line">	QSpinBox *spinBox;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// HELLO_H</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Mydialog.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDialog&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qslider.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mydialog</span> :</span> <span class="keyword">public</span> QDialog</span><br><span class="line">&#123;</span><br><span class="line">	Q_OBJECT</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Mydialog(QWidget *parent);</span><br><span class="line">	~Mydialog();</span><br><span class="line">signals:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">sendMsg</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	QSlider *slider;</span><br><span class="line">	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//hello.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"hello.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qaction.h&gt; // ..</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qmenubar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qmessagebox.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qstatusbar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qtoolbar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qdebug.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qspinbox.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qslider.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qboxlayout.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">Hello::Hello(QWidget *parent)</span><br><span class="line">	: QMainWindow(parent)</span><br><span class="line">&#123;</span><br><span class="line">	ui.setupUi(<span class="keyword">this</span>);</span><br><span class="line">	setWindowTitle(tr(<span class="string">"Main Window by tsc 292936085#qq.com"</span>));				<span class="comment">//设置主窗口的标题</span></span><br><span class="line">	openAction = <span class="keyword">new</span> QAction(QIcon(<span class="string">"./doc-open.png"</span>), tr(<span class="string">"&amp;Open..."</span>), <span class="keyword">this</span>);<span class="comment">//icon, text, parent</span></span><br><span class="line">	openAction-&gt;setShortcut(QKeySequence::Open);							<span class="comment">//Open的快捷键</span></span><br><span class="line">	openAction-&gt;setStatusTip(tr(<span class="string">"Open an existing file-from tsc"</span>));			<span class="comment">//状态栏显示</span></span><br><span class="line">	connect(openAction, &amp;QAction::triggered, <span class="keyword">this</span>, &amp;Hello::open);			<span class="comment">//将打开对话框的信号与槽</span></span><br><span class="line">	</span><br><span class="line">	QMenu *file = menuBar()-&gt;addMenu(tr(<span class="string">"&amp;File"</span>)); <span class="comment">//menuBar() 是 QMainWindows 的一个函数</span></span><br><span class="line">	file-&gt;addAction(openAction);</span><br><span class="line"></span><br><span class="line">	QToolBar *toolBar = addToolBar(tr(<span class="string">"&amp;File"</span>));</span><br><span class="line">	toolBar-&gt;addAction(openAction);</span><br><span class="line"></span><br><span class="line">	spinBox = <span class="keyword">new</span> QSpinBox(<span class="keyword">this</span>);</span><br><span class="line">	spinBox-&gt;setRange(<span class="number">0</span>, <span class="number">130</span>);			  <span class="comment">//设置范围</span></span><br><span class="line">	QHBoxLayout *layout = <span class="keyword">new</span> QHBoxLayout;<span class="comment">//布局管理器</span></span><br><span class="line">	layout-&gt;addWidget(spinBox);		      <span class="comment">//将一个控件添加到一个布局中去</span></span><br><span class="line"></span><br><span class="line">	QWidget *centerWindow = <span class="keyword">new</span> QWidget;  <span class="comment">//需要用new创建在堆上，不能创建在栈上</span></span><br><span class="line">	<span class="keyword">this</span>-&gt;setCentralWidget(centerWindow); <span class="comment">//给mainwindow指定CentralWidget</span></span><br><span class="line">	centerWindow-&gt;setLayout(layout);	  <span class="comment">//给CentralWidget设置布局管理器</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Hello::~Hello()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Hello::open()</span><br><span class="line">&#123;</span><br><span class="line">	dialog = <span class="keyword">new</span> Mydialog(<span class="keyword">this</span>);</span><br><span class="line">	dialog-&gt;setAttribute(Qt::WA_DeleteOnClose); <span class="comment">//对话框关闭时，自动销毁对话框</span></span><br><span class="line">	dialog-&gt;setWindowTitle(tr(<span class="string">"hello, tsc"</span>));</span><br><span class="line">	dialog-&gt;show();</span><br><span class="line"></span><br><span class="line">	connect(dialog, &amp;Mydialog::sendMsg, spinBox, &amp;QSpinBox::setValue); <span class="comment">//对话框发送信号过来，spinBox响应</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">void</span>(QSpinBox:: *spinBoxSignal)(<span class="keyword">int</span>) = &amp;QSpinBox::valueChanged;</span><br><span class="line">	connect(spinBox, spinBoxSignal, dialog, &amp;Mydialog::sendMsg); <span class="comment">//sinBox如果改变了，发信号</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Hello::setSpinBox(<span class="keyword">int</span> value)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Mydialog.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Mydialog.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qboxlayout.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">Mydialog::Mydialog(QWidget *parent)</span><br><span class="line">	: QDialog(parent)</span><br><span class="line">&#123;</span><br><span class="line">	slider = <span class="keyword">new</span> QSlider(Qt::Horizontal, <span class="keyword">this</span>); <span class="comment">//</span></span><br><span class="line">	slider-&gt;setRange(<span class="number">0</span>, <span class="number">130</span>);</span><br><span class="line">	QHBoxLayout *layout = <span class="keyword">new</span> QHBoxLayout;		<span class="comment">//布局管理器</span></span><br><span class="line">	layout-&gt;addWidget(slider);</span><br><span class="line">	<span class="keyword">this</span>-&gt;setLayout(layout);<span class="comment">//dialog不需要centralWidget</span></span><br><span class="line"></span><br><span class="line">	connect(slider, &amp;QSlider::valueChanged, <span class="keyword">this</span>, &amp;Mydialog::sendMsg); <span class="comment">//slider如果改变，发信号</span></span><br><span class="line">	</span><br><span class="line">	connect(<span class="keyword">this</span>, &amp;Mydialog::sendMsg, slider, &amp;QSlider::setValue); <span class="comment">//接收信号，设置slider的值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Mydialog::~Mydialog()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"hello.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtWidgets/QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">	Hello w;</span><br><span class="line">	w.show();</span><br><span class="line">	<span class="keyword">return</span> a.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>在mainwindow中添加控件时mainwindow必须要有个centralWidget</p>
+<blockquote>
+<p><strong>Note:</strong> Creating a main window without a central widget is not supported. You must have a central widget even if it is just a placeholder.</p>
+<p>参考：<a href="http://blog.chinaunix.net/uid-25147458-id-3325066.html" target="_blank" rel="noopener">在QMainWindow添加控件，无法显示问题</a> </p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/QT/" rel="tag">#QT</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/22/2017-02-22 VS2013中添加继承自Qt的类时提示没有moc_xxx.cpp/" rel="next" title="VS2013中添加继承自Qt的类时提示没有moc_xxx.cpp">
+                <i class="fa fa-chevron-left"></i> VS2013中添加继承自Qt的类时提示没有moc_xxx.cpp
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/25/2017-02-05 算法竞赛入门经典ch3_ex6WERTYU/" rel="prev" title="算法竞赛入门经典ch3_ex6WERTYU">
+                算法竞赛入门经典ch3_ex6WERTYU <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/22/2017-02-22 【QT】父组件与子组件的相互通信例子（用signal-slot实现）/"
+           data-title="【QT】父组件与子组件的相互通信例子（用signal-slot实现）" data-url="http://shanchuantian.com/2017/02/22/2017-02-22 【QT】父组件与子组件的相互通信例子（用signal-slot实现）/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="itsc" />
+          <p class="site-author-name" itemprop="name">itsc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shanchuantian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/shanchuantian/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-film"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/shanchuantian" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x76EE;&#x6807;" class="headerlink" title="&#x76EE;&#x6807;"></a>&#x76EE;&#x6807;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每个文件的内容"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5BB9;" class="headerlink" title="&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5BB9;"></a>&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5BB9;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x6CE8;&#x610F;" class="headerlink" title="&#x6CE8;&#x610F;"></a>&#x6CE8;&#x610F;</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">itsc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shanchuancomment"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,763 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="matlabb,统计," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="1. 何谓相关系数？此处只列出相关系数的公式：$$r = \frac{ Cov(X,Y) } {\sigma_x \sigma_y}= \frac{ E(X - \mu_x)(Y - \mu_y) }{\sigma_x \sigma_y}$$">
+<meta name="keywords" content="matlabb,统计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="matlab中样本相关系数的计算与测试">
+<meta property="og:url" content="http://shanchuantian.com/2016/10/16/2016-10-16matlab中样本相关系数的计算与测试/index.html">
+<meta property="og:site_name" content="你干吗在乎别人怎么想">
+<meta property="og:description" content="1. 何谓相关系数？此处只列出相关系数的公式：$$r = \frac{ Cov(X,Y) } {\sigma_x \sigma_y}= \frac{ E(X - \mu_x)(Y - \mu_y) }{\sigma_x \sigma_y}$$">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2016-10-17T05:46:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="matlab中样本相关系数的计算与测试">
+<meta name="twitter:description" content="1. 何谓相关系数？此处只列出相关系数的公式：$$r = \frac{ Cov(X,Y) } {\sigma_x \sigma_y}= \frac{ E(X - \mu_x)(Y - \mu_y) }{\sigma_x \sigma_y}$$">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://shanchuantian.com/2016/10/16/2016-10-16matlab中样本相关系数的计算与测试/"/>
+
+
+  <title> matlab中样本相关系数的计算与测试 | 你干吗在乎别人怎么想 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">你干吗在乎别人怎么想</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                matlab中样本相关系数的计算与测试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-16T23:33:41+08:00" content="2016-10-16">
+              2016-10-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Matlabb/" itemprop="url" rel="index">
+                    <span itemprop="name">Matlabb</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/16/2016-10-16matlab中样本相关系数的计算与测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/16/2016-10-16matlab中样本相关系数的计算与测试/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-何谓相关系数？"><a href="#1-何谓相关系数？" class="headerlink" title="1. 何谓相关系数？"></a>1. 何谓相关系数？</h1><p>此处只列出相关系数的公式：<br>$$<br>r = \frac{ Cov(X,Y) } {\sigma_x \sigma_y}<br>= \frac{ E(X - \mu_x)(Y - \mu_y) }{\sigma_x \sigma_y}<br>$$<br><a id="more"></a></p>
+<p>更多内容请百度或者看概率论与数理统计方面的书。</p>
+<p>文章的目的是测试一下如何使用这个公式计算相关系数，并阐述一些在实际操作时遇到的一些问题。</p>
+<h1 id="2-matlab自带函数"><a href="#2-matlab自带函数" class="headerlink" title="2. matlab自带函数"></a>2. matlab自带函数</h1><h2 id="2-1-corrcoef"><a href="#2-1-corrcoef" class="headerlink" title="2.1 corrcoef"></a>2.1 corrcoef</h2><p>功能：求相关系数</p>
+<p>用法：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">R = corrcoef(x,y)</span><br></pre></td></tr></table></figure>
+<p>其余用法未列出，使用<code>help corrcoef</code>查看。</p>
+<p><strong>corrcoef（x，y）</strong>表示序列x和序列y的相关系数，得到的结果是一个2*2矩阵，其中对角线上的元素分别表示x和y的自相关，非对角线上的元素分别表示x与y的相关系数和y与x的相关系数，两个是相等的。 </p>
+<h2 id="2-2-例子"><a href="#2-2-例子" class="headerlink" title="2.2 例子"></a>2.2 例子</h2><p>data1：有两例数据，第一列为x，第二列为y：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">1.2</span></span><br><span class="line"><span class="number">2</span> <span class="number">1.9</span></span><br><span class="line"><span class="number">3</span> <span class="number">3.1</span></span><br><span class="line"><span class="number">4</span> <span class="number">4</span></span><br><span class="line"><span class="number">5</span> <span class="number">5.6</span></span><br><span class="line"><span class="number">6</span> <span class="number">6.2</span></span><br><span class="line"><span class="number">7</span> <span class="number">6.8</span></span><br></pre></td></tr></table></figure>
+<p>code:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = load(<span class="string">'data1.txt'</span>);</span><br><span class="line">x = data(:,<span class="number">1</span>);</span><br><span class="line">y = data(:,<span class="number">2</span>);</span><br><span class="line">R = corrcoef(x, y)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">R =</span><br><span class="line">    <span class="number">1.0000</span>    <span class="number">0.9927</span></span><br><span class="line">    <span class="number">0.9927</span>    <span class="number">1.0000</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，自相关系数为1，因为自身与自身完全一样，x与y的相关系数为0.9927，非常接近1，表示两序列有很强的正相关性。</p>
+<h1 id="3-自己写一个计算相关系数的函数"><a href="#3-自己写一个计算相关系数的函数" class="headerlink" title="3. 自己写一个计算相关系数的函数"></a>3. 自己写一个计算相关系数的函数</h1><p>也不是完全自己写，目的是通过测试，了解自相关系数计算的一些细节。</p>
+<h2 id="3-1-总体与样本"><a href="#3-1-总体与样本" class="headerlink" title="3.1 总体与样本"></a>3.1 总体与样本</h2><p>在这之前得说一说总体与样本，计算方差的时候我们有如下公式：<br>$$<br>Var(X) = E(X - EX)^2<br>$$<br>这里取平均的时候有两种方式：</p>
+<ol>
+<li>除以$n$，此为二阶中心矩，把数据看作总体，如果数据并不是总体（对于测量来说一般是样本，因为不可能无限次测量），得到的估计是有偏的。</li>
+<li>除以$n-1$，其实是把数据看作样本，这样做是为了得到无偏估计。</li>
+</ol>
+<p>matlab中的<code>var</code>,<code>std</code>,<code>cov</code>等函数默认的都是除以$n-1$，这样可以得到无偏估计。使用时需注意。下面是对$n$和$n-1$的测试。</p>
+<h2 id="3-2-var-std-cov函数的测试"><a href="#3-2-var-std-cov函数的测试" class="headerlink" title="3.2 var,std,cov函数的测试"></a>3.2 <code>var</code>,<code>std</code>,<code>cov</code>函数的测试</h2><h3 id="3-2-1-var"><a href="#3-2-1-var" class="headerlink" title="3.2.1 var"></a>3.2.1 <code>var</code></h3><p>在matlab中，函数<code>var</code>可以用来计算方差，但要注意：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">V = var(X)   <span class="comment">% 样本方差，分母除的是n-1(当n&gt;1时)，当n=1时，除n</span></span><br><span class="line">V = var(X,<span class="number">1</span>) <span class="comment">% 二阶矩，也就是总体方差，分母除的是n</span></span><br></pre></td></tr></table></figure>
+<p>其余用法未列出，使用<code>help var</code>查看。</p>
+<p>可以进行如下验证，数据还是用的上面的x：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 总体方差</span></span><br><span class="line">sigxn  = var(x,<span class="number">1</span>) <span class="comment">% matlab函数</span></span><br><span class="line">sigxn_test = sum(diffx.^<span class="number">2</span>)/<span class="built_in">size</span>(diffx,<span class="number">1</span>) <span class="comment">% 自己计算</span></span><br><span class="line"><span class="comment">% 样本方差 </span></span><br><span class="line">sigxn1 = var(x,<span class="number">0</span>) <span class="comment">% 与var(x)结果一样</span></span><br><span class="line">sigxn1_test = sum(diffx.^<span class="number">2</span>)/(<span class="built_in">size</span>(diffx,<span class="number">1</span>)<span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sigxn       =     <span class="number">4</span></span><br><span class="line">sigxn_test  =     <span class="number">4</span></span><br><span class="line">sigxn1      =    <span class="number">4.6667</span></span><br><span class="line">sigxn1_test =    <span class="number">4.6667</span></span><br></pre></td></tr></table></figure>
+<p>$n$和$n-1$的用法得证。</p>
+<h3 id="3-2-2-cov"><a href="#3-2-2-cov" class="headerlink" title="3.2.2 cov"></a>3.2.2 <code>cov</code></h3><p>协方差计算函数<code>cov</code>也分总体和样本两种情况。</p>
+<p>cov的用法：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C = cov(x,y)   <span class="comment">% 总体，n</span></span><br><span class="line">C = cov(x,y,<span class="number">1</span>) <span class="comment">% 样本，n-1</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-2-3-std"><a href="#3-2-3-std" class="headerlink" title="3.2.3 std"></a>3.2.3 <code>std</code></h3><p>std用法:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = std(X)          <span class="comment">% 总体，n</span></span><br><span class="line">s = std(X,flag)     <span class="comment">% flag=0是总体，flag=1是样本（n-1）</span></span><br></pre></td></tr></table></figure>
+<p>其余用法未列出，使用<code>help var</code>查看。</p>
+<h2 id="3-3-相关系数的计算"><a href="#3-3-相关系数的计算" class="headerlink" title="3.3 相关系数的计算"></a>3.3 相关系数的计算</h2><p>完整的代码：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">data = load(<span class="string">'data1.txt'</span>);</span><br><span class="line">x  = data(:,<span class="number">1</span>);</span><br><span class="line">y  = data(:,<span class="number">2</span>);</span><br><span class="line">R0 = corrcoef(x, y) <span class="comment">% 相关系数</span></span><br><span class="line"><span class="comment">% 以下是测试</span></span><br><span class="line">mu_x  = mean(x); <span class="comment">% x均值</span></span><br><span class="line">mu_y  = mean(y); <span class="comment">% y均值</span></span><br><span class="line">diffx = x - mu_x; <span class="comment">% 行列与x一样</span></span><br><span class="line">diffy = y - mu_y;</span><br><span class="line">covxy = sum(diffx.*diffy)/(<span class="built_in">size</span>(diffx,<span class="number">1</span>)<span class="number">-1</span>); <span class="comment">% x与y的协方差，用的n-1</span></span><br><span class="line">sigx  = <span class="built_in">sqrt</span>(var(x,<span class="number">0</span>)); <span class="comment">% 标准差，用的n-1</span></span><br><span class="line">sigy  = <span class="built_in">sqrt</span>(var(y,<span class="number">0</span>));</span><br><span class="line">R     = covxy/(sigx*sigy)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">R0 =</span><br><span class="line">    <span class="number">1.0000</span>    <span class="number">0.9927</span></span><br><span class="line">    <span class="number">0.9927</span>    <span class="number">1.0000</span></span><br><span class="line">R =</span><br><span class="line">    <span class="number">0.9927</span></span><br></pre></td></tr></table></figure>
+<p>上面自己计算的时候，协方差和标准差的分母用的是$n-1$，接下来，用$n$，发现得到的结果是一样的。可见，对于相关系数的计算，不管协方差和标准差的分母是$n-1$还是$n$，结果是一样的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/matlabb/" rel="tag">#matlabb</a>
+          
+            <a href="/tags/统计/" rel="tag">#统计</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/09/2016-10-09【杂谈】为什么要折腾这个博客/" rel="next" title="为什么要折腾这个博客">
+                <i class="fa fa-chevron-left"></i> 为什么要折腾这个博客
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/17/2016-10-17用matlab读取测高卫星jason2的netCDF格式数据的简单示例（一）/" rel="prev" title="用matlab读取测高卫星jason2的netCDF格式数据的简单示例（一）">
+                用matlab读取测高卫星jason2的netCDF格式数据的简单示例（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/16/2016-10-16matlab中样本相关系数的计算与测试/"
+           data-title="matlab中样本相关系数的计算与测试" data-url="http://shanchuantian.com/2016/10/16/2016-10-16matlab中样本相关系数的计算与测试/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="itsc" />
+          <p class="site-author-name" itemprop="name">itsc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shanchuantian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/shanchuantian/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-film"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/shanchuantian" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-何谓相关系数？"><span class="nav-number">1.</span> <span class="nav-text"><a href="#1-&#x4F55;&#x8C13;&#x76F8;&#x5173;&#x7CFB;&#x6570;&#xFF1F;" class="headerlink" title="1. &#x4F55;&#x8C13;&#x76F8;&#x5173;&#x7CFB;&#x6570;&#xFF1F;"></a>1. &#x4F55;&#x8C13;&#x76F8;&#x5173;&#x7CFB;&#x6570;&#xFF1F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-matlab自带函数"><span class="nav-number">2.</span> <span class="nav-text"><a href="#2-matlab&#x81EA;&#x5E26;&#x51FD;&#x6570;" class="headerlink" title="2. matlab&#x81EA;&#x5E26;&#x51FD;&#x6570;"></a>2. matlab&#x81EA;&#x5E26;&#x51FD;&#x6570;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-corrcoef"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#2-1-corrcoef" class="headerlink" title="2.1 corrcoef"></a>2.1 corrcoef</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-例子"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#2-2-&#x4F8B;&#x5B50;" class="headerlink" title="2.2 &#x4F8B;&#x5B50;"></a>2.2 &#x4F8B;&#x5B50;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-自己写一个计算相关系数的函数"><span class="nav-number">3.</span> <span class="nav-text"><a href="#3-&#x81EA;&#x5DF1;&#x5199;&#x4E00;&#x4E2A;&#x8BA1;&#x7B97;&#x76F8;&#x5173;&#x7CFB;&#x6570;&#x7684;&#x51FD;&#x6570;" class="headerlink" title="3. &#x81EA;&#x5DF1;&#x5199;&#x4E00;&#x4E2A;&#x8BA1;&#x7B97;&#x76F8;&#x5173;&#x7CFB;&#x6570;&#x7684;&#x51FD;&#x6570;"></a>3. &#x81EA;&#x5DF1;&#x5199;&#x4E00;&#x4E2A;&#x8BA1;&#x7B97;&#x76F8;&#x5173;&#x7CFB;&#x6570;&#x7684;&#x51FD;&#x6570;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-总体与样本"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#3-1-&#x603B;&#x4F53;&#x4E0E;&#x6837;&#x672C;" class="headerlink" title="3.1 &#x603B;&#x4F53;&#x4E0E;&#x6837;&#x672C;"></a>3.1 &#x603B;&#x4F53;&#x4E0E;&#x6837;&#x672C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-var-std-cov函数的测试"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#3-2-var-std-cov&#x51FD;&#x6570;&#x7684;&#x6D4B;&#x8BD5;" class="headerlink" title="3.2 var,std,cov&#x51FD;&#x6570;&#x7684;&#x6D4B;&#x8BD5;"></a>3.2 <code>var</code>,<code>std</code>,<code>cov</code>&#x51FD;&#x6570;&#x7684;&#x6D4B;&#x8BD5;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-var"><span class="nav-number">3.2.1.</span> <span class="nav-text"><a href="#3-2-1-var" class="headerlink" title="3.2.1 var"></a>3.2.1 <code>var</code></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-cov"><span class="nav-number">3.2.2.</span> <span class="nav-text"><a href="#3-2-2-cov" class="headerlink" title="3.2.2 cov"></a>3.2.2 <code>cov</code></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-std"><span class="nav-number">3.2.3.</span> <span class="nav-text"><a href="#3-2-3-std" class="headerlink" title="3.2.3 std"></a>3.2.3 <code>std</code></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-相关系数的计算"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#3-3-&#x76F8;&#x5173;&#x7CFB;&#x6570;&#x7684;&#x8BA1;&#x7B97;" class="headerlink" title="3.3 &#x76F8;&#x5173;&#x7CFB;&#x6570;&#x7684;&#x8BA1;&#x7B97;"></a>3.3 &#x76F8;&#x5173;&#x7CFB;&#x6570;&#x7684;&#x8BA1;&#x7B97;</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">itsc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shanchuancomment"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+
+</body>
+</html>

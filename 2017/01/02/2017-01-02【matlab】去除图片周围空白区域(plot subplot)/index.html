@@ -1,0 +1,776 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="matlabb," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="欢迎前往我的CSDN博客Find your love查看：【Matlab】去除图片周围空白区域(plot subplot) 1. 原理figure如同一张画布，axes是坐标轴用来控制所画图的位置和大小。 在matlab的帮助文档中Graphics-&amp;gt;Formatting and Annotation-&amp;gt;Coordinate System-&amp;gt;Properties-&amp;gt;Axes">
+<meta name="keywords" content="matlabb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【matlab】去除图片周围空白区域(plot subplot)">
+<meta property="og:url" content="http://shanchuantian.com/2017/01/02/2017-01-02【matlab】去除图片周围空白区域(plot subplot)/index.html">
+<meta property="og:site_name" content="你干吗在乎别人怎么想">
+<meta property="og:description" content="欢迎前往我的CSDN博客Find your love查看：【Matlab】去除图片周围空白区域(plot subplot) 1. 原理figure如同一张画布，axes是坐标轴用来控制所画图的位置和大小。 在matlab的帮助文档中Graphics-&amp;gt;Formatting and Annotation-&amp;gt;Coordinate System-&amp;gt;Properties-&amp;gt;Axes">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/1.png">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/origin.jpg">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/plot1.jpg">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/plot2.jpg">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/plot3.jpg">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub11.jpg">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub21.jpg">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub12.jpg">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub22.jpg">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub33.jpg">
+<meta property="og:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub44.jpg">
+<meta property="og:updated_time" content="2017-01-02T09:02:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【matlab】去除图片周围空白区域(plot subplot)">
+<meta name="twitter:description" content="欢迎前往我的CSDN博客Find your love查看：【Matlab】去除图片周围空白区域(plot subplot) 1. 原理figure如同一张画布，axes是坐标轴用来控制所画图的位置和大小。 在matlab的帮助文档中Graphics-&amp;gt;Formatting and Annotation-&amp;gt;Coordinate System-&amp;gt;Properties-&amp;gt;Axes">
+<meta name="twitter:image" content="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://shanchuantian.com/2017/01/02/2017-01-02【matlab】去除图片周围空白区域(plot subplot)/"/>
+
+
+  <title> 【matlab】去除图片周围空白区域(plot subplot) | 你干吗在乎别人怎么想 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">你干吗在乎别人怎么想</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【matlab】去除图片周围空白区域(plot subplot)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-02T17:03:12+08:00" content="2017-01-02">
+              2017-01-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/matlabb/" itemprop="url" rel="index">
+                    <span itemprop="name">matlabb</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/02/2017-01-02【matlab】去除图片周围空白区域(plot subplot)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/02/2017-01-02【matlab】去除图片周围空白区域(plot subplot)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>欢迎前往我的CSDN博客<a href="http://blog.csdn.net/shanchuan2012" target="_blank" rel="noopener">Find your love</a>查看：<a href="http://blog.csdn.net/shanchuan2012/article/details/53980288" target="_blank" rel="noopener">【Matlab】去除图片周围空白区域(plot subplot)</a></p>
+<h1 id="1-原理"><a href="#1-原理" class="headerlink" title="1. 原理"></a>1. 原理</h1><p>figure如同一张画布，axes是坐标轴用来控制所画图的位置和大小。</p>
+<p>在matlab的帮助文档中Graphics-&gt;Formatting and Annotation-&gt;Coordinate System-&gt;Properties-&gt;Axes Properties有axes的属性，在Location and Size中可以看到主要有：</p>
+<p>Position</p>
+<p>TightInset</p>
+<p>OuterPosition</p>
+<a id="more"></a>
+<p>下图是三者的关系，OuterPosition是外边框（红色虚线），Position是内边框（绿色实线），TightInset是有效边界（蓝色）与Position之间的部分（理解它才能自定义axes）。</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/1.png" alt=""></p>
+<p>图片引自matlab帮助手册。</p>
+<h1 id="2-plot画出来的图的空白边缘消除"><a href="#2-plot画出来的图的空白边缘消除" class="headerlink" title="2. plot画出来的图的空白边缘消除"></a>2. plot画出来的图的空白边缘消除</h1><p>Plot画出来的为单一的一张图，与之对应的是subplot，在一个figure中画多个图。消除Plot的空白区域有3种方法。</p>
+<h2 id="2-1"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</h2><p>加一句命令即可：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set(gca,<span class="string">'LooseInset'</span>,get(gca,<span class="string">'TightInset'</span>))</span><br></pre></td></tr></table></figure>
+<p>去除的不是很完全。</p>
+<h2 id="2-2"><a href="#2-2" class="headerlink" title="2.2"></a>2.2</h2><p>加一句命令即可：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set(gca,<span class="string">'looseInset'</span>,[<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="2-3"><a href="#2-3" class="headerlink" title="2.3"></a>2.3</h2><p>第3种要麻烦一些，我把它写成了一个函数，方便调用，如果您有需要，只需要在您的代码中使用该函数即可：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% RemovePlotWhiteArea: 去除Plot画的图的空白部分</span></span><br><span class="line"><span class="comment">% RemovePlotWhiteArea(gca)</span></span><br><span class="line"><span class="comment">% 输入</span></span><br><span class="line"><span class="comment">% gca: axes句柄</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% author : TSC</span></span><br><span class="line"><span class="comment">% time   : 2017-01-02</span></span><br><span class="line"><span class="comment">% email  : 292936085#qq.com(将#替换为@)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[]</span> = <span class="title">RemovePlotWhiteArea</span><span class="params">(gca)</span></span></span><br><span class="line"><span class="comment">% TightInset的位置</span></span><br><span class="line">inset_vectior = get(gca, <span class="string">'TightInset'</span>);</span><br><span class="line">inset_x = inset_vectior(<span class="number">1</span>);</span><br><span class="line">inset_y = inset_vectior(<span class="number">2</span>);</span><br><span class="line">inset_w = inset_vectior(<span class="number">3</span>);</span><br><span class="line">inset_h = inset_vectior(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% OuterPosition的位置</span></span><br><span class="line">outer_vector = get(gca, <span class="string">'OuterPosition'</span>);</span><br><span class="line">pos_new_x = outer_vector(<span class="number">1</span>) + inset_x; <span class="comment">% 将Position的原点移到到TightInset的原点</span></span><br><span class="line">pos_new_y = outer_vector(<span class="number">2</span>) + inset_y;</span><br><span class="line">pos_new_w = outer_vector(<span class="number">3</span>) - inset_w - inset_x; <span class="comment">% 重设Position的宽</span></span><br><span class="line">pos_new_h = outer_vector(<span class="number">4</span>) - inset_h - inset_y; <span class="comment">% 重设Position的高</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 重设Position</span></span><br><span class="line">set(gca, <span class="string">'Position'</span>, [pos_new_x, pos_new_y, pos_new_w, pos_new_h]);</span><br></pre></td></tr></table></figure>
+<h2 id="2-4-结果"><a href="#2-4-结果" class="headerlink" title="2.4 结果"></a>2.4 结果</h2><h3 id="测试代码："><a href="#测试代码：" class="headerlink" title="测试代码："></a>测试代码：</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 去除一张图片周围的空白区域</span></span><br><span class="line"><span class="comment">% ************************************************************************* </span></span><br><span class="line">remove_flag = <span class="number">3</span>; <span class="comment">%1,2,3 任选一种查看效果</span></span><br><span class="line"><span class="comment">% -------------------------------------------------------------------------</span></span><br><span class="line">x = <span class="number">0</span>:<span class="number">0.1</span>:<span class="number">10</span>;</span><br><span class="line">y = <span class="built_in">sin</span>(x);</span><br><span class="line"></span><br><span class="line">figure(<span class="string">'color'</span>, [<span class="number">0.8</span>, <span class="number">0.8</span>, <span class="number">0.8</span>]); <span class="comment">% 为区分边界，将底色改为灰色</span></span><br><span class="line">set(gcf, <span class="string">'InvertHardCopy'</span>, <span class="string">'off'</span>); <span class="comment">% 让设置的背景色有效</span></span><br><span class="line">plot(x,y);</span><br><span class="line">title(<span class="string">'sinx'</span>);</span><br><span class="line">xlabel(<span class="string">'x'</span>);</span><br><span class="line">ylabel(<span class="string">'y'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 去除空白的第1种方式</span></span><br><span class="line"><span class="keyword">if</span> <span class="number">1</span> == remove_flag</span><br><span class="line">    set(gca,<span class="string">'LooseInset'</span>,get(gca,<span class="string">'TightInset'</span>))</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 去除空白的第2种方式</span></span><br><span class="line"><span class="keyword">if</span> <span class="number">2</span> == remove_flag</span><br><span class="line">    set(gca,<span class="string">'looseInset'</span>,[<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>])</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 去除空白的第3种方式</span></span><br><span class="line"><span class="keyword">if</span> <span class="number">3</span> == remove_flag</span><br><span class="line">    RemovePlotWhiteArea(gca);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">set(gcf, <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>);</span><br><span class="line">print(gcf, <span class="string">'-djpeg'</span>, <span class="string">'-r300'</span>, [<span class="string">'./http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/'</span>, num2str(remove_flag), <span class="string">'.jpg'</span>]);</span><br></pre></td></tr></table></figure>
+<h3 id="结果图片："><a href="#结果图片：" class="headerlink" title="结果图片："></a>结果图片：</h3><p>原图：</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/origin.jpg" alt=""></p>
+<p>去除空白的第1种方式:</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/plot1.jpg" alt=""></p>
+<p>去除空白的第2种方式:</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/plot2.jpg" alt=""></p>
+<p>去除空白的第3种方式</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/plot3.jpg" alt=""></p>
+<h1 id="3-subplot画出来的图的空白边缘消除"><a href="#3-subplot画出来的图的空白边缘消除" class="headerlink" title="3. subplot画出来的图的空白边缘消除"></a>3. subplot画出来的图的空白边缘消除</h1><h2 id="3-1-code"><a href="#3-1-code" class="headerlink" title="3.1 code"></a>3.1 code</h2><p>subplot以子图的形式画多幅图，所以有多少axes需要控制，比起plot要复杂一些。</p>
+<p>原理是一样的，先把每个子图的位置和大小定下来，再设置每个子图里面axes的位置和大小，直接给出函数：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% RemoveSubplotWhiteArea: 去除subplot周围的空白部分</span></span><br><span class="line"><span class="comment">% RemoveSubplotWhiteArea(gca, sub_row, sub_col, current_row, current_col)</span></span><br><span class="line"><span class="comment">% 输入</span></span><br><span class="line"><span class="comment">% gca		  :axes句柄</span></span><br><span class="line"><span class="comment">% sub_row     :subplot的行数</span></span><br><span class="line"><span class="comment">% sub_col     :subplot的列数</span></span><br><span class="line"><span class="comment">% current_row :当前列数</span></span><br><span class="line"><span class="comment">% current_col :当前行数</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% 注意:使用如下语句,print保存图片的时候使其按照设置来保存,否则修改无效</span></span><br><span class="line"><span class="comment">% set(gcf, 'PaperPositionMode', 'auto');</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% author : TSC</span></span><br><span class="line"><span class="comment">% time   : 2017-01-02</span></span><br><span class="line"><span class="comment">% email  : 292936085#qq.com(将#替换为@)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[]</span> = <span class="title">RemoveSubplotWhiteArea</span><span class="params">(gca, sub_row, sub_col, current_row, current_col)</span></span></span><br><span class="line"><span class="comment">% 设置OuterPosition</span></span><br><span class="line">sub_axes_x = current_col*<span class="number">1</span>/sub_col - <span class="number">1</span>/sub_col;</span><br><span class="line">sub_axes_y = <span class="number">1</span>-current_row*<span class="number">1</span>/sub_row; <span class="comment">% y是从上往下的</span></span><br><span class="line">sub_axes_w = <span class="number">1</span>/sub_col;</span><br><span class="line">sub_axes_h = <span class="number">1</span>/sub_row;</span><br><span class="line">set(gca, <span class="string">'OuterPosition'</span>, [sub_axes_x, sub_axes_y, sub_axes_w, sub_axes_h]); <span class="comment">% 重设OuterPosition</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% TightInset的位置</span></span><br><span class="line">inset_vectior = get(gca, <span class="string">'TightInset'</span>);</span><br><span class="line">inset_x = inset_vectior(<span class="number">1</span>);</span><br><span class="line">inset_y = inset_vectior(<span class="number">2</span>);</span><br><span class="line">inset_w = inset_vectior(<span class="number">3</span>);</span><br><span class="line">inset_h = inset_vectior(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% OuterPosition的位置</span></span><br><span class="line">outer_vector = get(gca, <span class="string">'OuterPosition'</span>);</span><br><span class="line">pos_new_x = outer_vector(<span class="number">1</span>) + inset_x; <span class="comment">% 将Position的原点移到到TightInset的原点</span></span><br><span class="line">pos_new_y = outer_vector(<span class="number">2</span>) + inset_y;</span><br><span class="line">pos_new_w = outer_vector(<span class="number">3</span>) - inset_w - inset_x; <span class="comment">% 重设Position的宽</span></span><br><span class="line">pos_new_h = outer_vector(<span class="number">4</span>) - inset_h - inset_y; <span class="comment">% 重设Position的高</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 重设Position</span></span><br><span class="line">set(gca, <span class="string">'Position'</span>, [pos_new_x, pos_new_y, pos_new_w, pos_new_h]);</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-结果"><a href="#3-2-结果" class="headerlink" title="3.2 结果"></a>3.2 结果</h2><h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 去除subplot画出来的图的周围空白部分</span></span><br><span class="line">x = <span class="number">0</span>:<span class="number">0.1</span>:<span class="number">10</span>;</span><br><span class="line">y = <span class="built_in">sin</span>(x);</span><br><span class="line"></span><br><span class="line">figure(<span class="string">'color'</span>, [<span class="number">0.8</span>, <span class="number">0.8</span>, <span class="number">0.8</span>], <span class="string">'position'</span>, [<span class="number">100</span>, <span class="number">100</span>, <span class="number">800</span>,<span class="number">400</span>]);  <span class="comment">% 为区分边界，将底色改为灰色</span></span><br><span class="line">set(gcf, <span class="string">'InvertHardCopy'</span>, <span class="string">'off'</span>); <span class="comment">% 让设置的背景色有效</span></span><br><span class="line">sub_row = <span class="number">4</span>; <span class="comment">% 子图行数</span></span><br><span class="line">sub_col = <span class="number">4</span>; <span class="comment">% 子图列数</span></span><br><span class="line"><span class="keyword">for</span> i_row = <span class="number">1</span> : sub_row</span><br><span class="line">    <span class="keyword">for</span> j_col = <span class="number">1</span> : sub_col</span><br><span class="line">        order = (i_row<span class="number">-1</span>)*sub_col+j_col; <span class="comment">% 子图的顺序</span></span><br><span class="line">        subplot(sub_row, sub_col, order);</span><br><span class="line">        plot(y);</span><br><span class="line">        title([num2str(i_row), num2str(j_col)]);</span><br><span class="line">        xlabel(<span class="string">'x'</span>);</span><br><span class="line">        ylabel(<span class="string">'y'</span>);</span><br><span class="line">        RemoveSubplotWhiteArea(gca, sub_row, sub_col, i_row, j_col); <span class="comment">% 去除空白部分</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">set(gcf, <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>); <span class="comment">% 使print出来的与屏幕显示大小相同</span></span><br><span class="line">print(gcf, <span class="string">'-djpeg'</span>, <span class="string">'-r300'</span>, [<span class="string">'http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub'</span>, num2str(sub_row), num2str(sub_col), <span class="string">'.jpg'</span>]);</span><br></pre></td></tr></table></figure>
+<h3 id="结果图片"><a href="#结果图片" class="headerlink" title="结果图片"></a>结果图片</h3><p>1行1列：</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub11.jpg" alt=""></p>
+<p>2行1列：</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub21.jpg" alt=""></p>
+<p>1行2列：</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub12.jpg" alt=""></p>
+<p>2行2列：</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub22.jpg" alt=""></p>
+<p>3行3列：</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub33.jpg" alt=""></p>
+<p>4行4列：</p>
+<p><img src="http://oei6q3yqv.bkt.clouddn.com/2017/01/02/witheedge/sub44.jpg" alt=""></p>
+<p>可以看到，3行3列和4行4列左边还是有一点点空白，我不能消除了，对axes的原理还是有疑问的，暂时这样吧。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/matlabb/" rel="tag">#matlabb</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/17/2016-12-17 【Matlab】把一年中的某一天(从1月1日起)换算成日期/" rel="next" title="【Matlab】把一年中的某一天(从1月1日起)换算成日期">
+                <i class="fa fa-chevron-left"></i> 【Matlab】把一年中的某一天(从1月1日起)换算成日期
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/08/2017-01-08 【GMT】在全球地图上绘制点和文字/" rel="prev" title="【GMT】在全球地图上绘制点和文字">
+                【GMT】在全球地图上绘制点和文字 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/02/2017-01-02【matlab】去除图片周围空白区域(plot subplot)/"
+           data-title="【matlab】去除图片周围空白区域(plot subplot)" data-url="http://shanchuantian.com/2017/01/02/2017-01-02【matlab】去除图片周围空白区域(plot subplot)/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="itsc" />
+          <p class="site-author-name" itemprop="name">itsc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shanchuantian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/shanchuantian/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-film"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/shanchuantian" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-原理"><span class="nav-number">1.</span> <span class="nav-text"><a href="#1-&#x539F;&#x7406;" class="headerlink" title="1. &#x539F;&#x7406;"></a>1. &#x539F;&#x7406;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-plot画出来的图的空白边缘消除"><span class="nav-number">2.</span> <span class="nav-text"><a href="#2-plot&#x753B;&#x51FA;&#x6765;&#x7684;&#x56FE;&#x7684;&#x7A7A;&#x767D;&#x8FB9;&#x7F18;&#x6D88;&#x9664;" class="headerlink" title="2. plot&#x753B;&#x51FA;&#x6765;&#x7684;&#x56FE;&#x7684;&#x7A7A;&#x767D;&#x8FB9;&#x7F18;&#x6D88;&#x9664;"></a>2. plot&#x753B;&#x51FA;&#x6765;&#x7684;&#x56FE;&#x7684;&#x7A7A;&#x767D;&#x8FB9;&#x7F18;&#x6D88;&#x9664;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#2-2" class="headerlink" title="2.2"></a>2.2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#2-3" class="headerlink" title="2.3"></a>2.3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-结果"><span class="nav-number">2.4.</span> <span class="nav-text"><a href="#2-4-&#x7ED3;&#x679C;" class="headerlink" title="2.4 &#x7ED3;&#x679C;"></a>2.4 &#x7ED3;&#x679C;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试代码："><span class="nav-number">2.4.1.</span> <span class="nav-text"><a href="#&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#xFF1A;" class="headerlink" title="&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#xFF1A;"></a>&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#xFF1A;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果图片："><span class="nav-number">2.4.2.</span> <span class="nav-text"><a href="#&#x7ED3;&#x679C;&#x56FE;&#x7247;&#xFF1A;" class="headerlink" title="&#x7ED3;&#x679C;&#x56FE;&#x7247;&#xFF1A;"></a>&#x7ED3;&#x679C;&#x56FE;&#x7247;&#xFF1A;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-subplot画出来的图的空白边缘消除"><span class="nav-number">3.</span> <span class="nav-text"><a href="#3-subplot&#x753B;&#x51FA;&#x6765;&#x7684;&#x56FE;&#x7684;&#x7A7A;&#x767D;&#x8FB9;&#x7F18;&#x6D88;&#x9664;" class="headerlink" title="3. subplot&#x753B;&#x51FA;&#x6765;&#x7684;&#x56FE;&#x7684;&#x7A7A;&#x767D;&#x8FB9;&#x7F18;&#x6D88;&#x9664;"></a>3. subplot&#x753B;&#x51FA;&#x6765;&#x7684;&#x56FE;&#x7684;&#x7A7A;&#x767D;&#x8FB9;&#x7F18;&#x6D88;&#x9664;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-code"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#3-1-code" class="headerlink" title="3.1 code"></a>3.1 code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-结果"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#3-2-&#x7ED3;&#x679C;" class="headerlink" title="3.2 &#x7ED3;&#x679C;"></a>3.2 &#x7ED3;&#x679C;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试代码"><span class="nav-number">3.2.1.</span> <span class="nav-text"><a href="#&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;" class="headerlink" title="&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;"></a>&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果图片"><span class="nav-number">3.2.2.</span> <span class="nav-text"><a href="#&#x7ED3;&#x679C;&#x56FE;&#x7247;" class="headerlink" title="&#x7ED3;&#x679C;&#x56FE;&#x7247;"></a>&#x7ED3;&#x679C;&#x56FE;&#x7247;</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">itsc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shanchuancomment"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,762 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="排版,TeXLive," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="一些问题TeX是什么？  TeX 是一个排版系统。  TeX和LaTeX 的区别？">
+<meta name="keywords" content="排版,TeXLive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【工具】排版软件TeX Live 2016的简单使用">
+<meta property="og:url" content="http://shanchuantian.com/2016/12/04/2016-12-04 【工具】排版软件TeX Live 2016的简单使用/index.html">
+<meta property="og:site_name" content="你干吗在乎别人怎么想">
+<meta property="og:description" content="一些问题TeX是什么？  TeX 是一个排版系统。  TeX和LaTeX 的区别？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-03-01T08:57:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【工具】排版软件TeX Live 2016的简单使用">
+<meta name="twitter:description" content="一些问题TeX是什么？  TeX 是一个排版系统。  TeX和LaTeX 的区别？">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://shanchuantian.com/2016/12/04/2016-12-04 【工具】排版软件TeX Live 2016的简单使用/"/>
+
+
+  <title> 【工具】排版软件TeX Live 2016的简单使用 | 你干吗在乎别人怎么想 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">你干吗在乎别人怎么想</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【工具】排版软件TeX Live 2016的简单使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-04T00:00:00+08:00" content="2016-12-04">
+              2016-12-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/TeXLive/" itemprop="url" rel="index">
+                    <span itemprop="name">TeXLive</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/04/2016-12-04 【工具】排版软件TeX Live 2016的简单使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/04/2016-12-04 【工具】排版软件TeX Live 2016的简单使用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h1><p>TeX是什么？</p>
+<blockquote>
+<p>TeX 是一个排版系统。</p>
+</blockquote>
+<p>TeX和LaTeX 的区别？</p>
+<a id="more"></a>
+<blockquote>
+<p>TeX 是 LaTeX 的基石，LaTeX 建立在 TeX 之上。TeX 不仅是一个排版程序，而且是一种程序语言。LaTeX 就是用这种语言写成的一个“TeX 宏包”，它扩展了 TeX 的功能。</p>
+</blockquote>
+<p>TeX Live 2016是什么？发行版</p>
+<blockquote>
+<p>Knuth 创造了 TeX 之后，公布了 TeX 程序的源代码。所以任何人都可以在保证不修改那个文件的情况下把它编译成程序，然后跟其它很多程序一起打包发行。这样就有了很多发行版本，比如 Windows 下有 MikTeX，fpTeX, … Linux 和 UNIX 下有 teTeX. 这些简称“发行”。<br>你知道 Linux 吗？如果知道我就打个比方：TeX 和 MikTeX, teTeX… 的关系，就像 Linux 和 Debian GNU/Linux, Redhat Linux, … 的关系。每一个TeX发行里都包含了 TeX, METAFONT, LaTeX, amsTeX, MetaPost, dvips, pdfTeX, dvipdfm…每一个 Linux 发行都包含Linux内核，bash, gcc, tar, XFree86, …</p>
+</blockquote>
+<p>参考：<a href="http://www.ctex.org/documents/shredder/tex_frame.html" target="_blank" rel="noopener">TeX — Beauty and Fun</a></p>
+<h1 id="如何获取TeX-Live-2016？"><a href="#如何获取TeX-Live-2016？" class="headerlink" title="如何获取TeX Live 2016？"></a>如何获取TeX Live 2016？</h1><p>可以在这里下载：<a href="http://mirror.hust.edu.cn/CTAN/systems/texlive/Images/" target="_blank" rel="noopener">http://mirror.hust.edu.cn/CTAN/systems/texlive/Images/</a></p>
+<p>这是CTEX的<a href="http://www.ctex.org/HomePage" target="_blank" rel="noopener">主页</a>。</p>
+<p>这是中文TEX的<a href="http://bbs.ctex.org/forum.php" target="_blank" rel="noopener">论坛</a>，遇到相关问题可以去搜索和提问。</p>
+<p>这是一个英文的指南：<a href="http://tug.org/texlive/doc/texlive-en/texlive-en.html#news" target="_blank" rel="noopener">The TEX Live Guide—2016</a></p>
+<h1 id="我的使用情况"><a href="#我的使用情况" class="headerlink" title="我的使用情况"></a>我的使用情况</h1><p>只是初级使用者，在现有的模板下，遵循相应的规则去填写内容，对tex的细节和相应的原理不太懂。</p>
+<h2 id="章节"><a href="#章节" class="headerlink" title="章节"></a>章节</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\section&#123;一级标题&#125;</span><br><span class="line">\subsection&#123;二级标题&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数学符号及公式"><a href="#数学符号及公式" class="headerlink" title="数学符号及公式"></a>数学符号及公式</h2><p>数学符号用<code>$x$</code>表示：$x$.</p>
+<p>公式用如下形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;equation&#125;</span><br><span class="line">	\sigma_x^2=E(x-\mu)^2=E(\Delta^2)=\sigma_&#123;\Delta&#125;^2</span><br><span class="line">	\label&#123;Eqn.Tao:1&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+<p>得如下结果：<br>$$<br>\begin{equation}<br>    \sigma<em>x^2=E(x-\mu)^2=E(\Delta^2)=\sigma</em>{\Delta}^2<br>    \label{Eqn.Tao:1}<br>\end{equation}<br>$$<br>要换行并且对齐等号则用split和&amp;:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;equation&#125;</span><br><span class="line">	\begin&#123;split&#125;</span><br><span class="line">		\sigma_x^2 &amp;=E(x-\mu)^2 \\</span><br><span class="line">		           &amp;=E(\Delta^2) \\</span><br><span class="line">		           &amp;=\sigma_&#123;\Delta&#125;^2</span><br><span class="line">		\label&#123;Eqn.Tao:2&#125;</span><br><span class="line">	\end&#123;split&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+<p>得如下结果：<br>$$<br>\begin{equation}<br>    \begin{split}<br>        \sigma<em>x^2 &amp;= E(x-\mu)^2 \<br>                             &amp;=E(\Delta^2) \<br>                             &amp;=\sigma</em>{\Delta}^2<br>        \label{Eqn.Tao:2}<br>    \end{split}<br>\end{equation}<br>$$<br>或者用align：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;align&#125;</span><br><span class="line">    MSE(x) &amp;= E(x-\bar&#123;x&#125;)^2=E[(x-\mu)+(\mu-\bar&#123;x&#125;)]^2 \nonumber \\</span><br><span class="line">    	   &amp;= E(\Delta+\delta)^2=E(\Delta^2)+E(\delta^2)</span><br><span class="line">    \label&#123;Eqn.Tao:6&#125;</span><br><span class="line">\end&#123;align&#125;</span><br></pre></td></tr></table></figure>
+<p>$$<br>\begin{align}<br>    MSE(x) &amp;= E(x-\bar{x})^2=E[(x-\mu)+(\mu-\bar{x})]^2 \nonumber \<br>           &amp;= E(\Delta+\delta)^2=E(\Delta^2)+E(\delta^2)<br>    \label{Eqn.Tao:6}<br>\end{align}<br>$$<br>它们的区别是什么我也不是很懂。</p>
+<p>引用公式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\ref&#123;Eqn.Tao:6&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="表格与图形"><a href="#表格与图形" class="headerlink" title="表格与图形"></a>表格与图形</h2><p>表格：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;table&#125;[!htpb]</span><br><span class="line">  \centering</span><br><span class="line">  \caption&#123;三线表&#125;\label&#123;Tab.ThreeLines&#125;</span><br><span class="line">  \begin&#123;tabular&#125;&#123;ccccc&#125; \toprule[1.0pt]</span><br><span class="line">    行号 &amp; 列2 &amp; 列3 &amp; 列4 &amp; 列5 \\ \midrule[0.7pt]</span><br><span class="line">    行2  &amp; 2.2 &amp; 2.3 &amp; 2.4 &amp; 2.5 \\</span><br><span class="line">    行3  &amp; 3.2 &amp; 3.3 &amp; 3.4 &amp; 3.5 \\</span><br><span class="line">    行4  &amp; 4.2 &amp; 4.3 &amp; 4.4 &amp; 4.5 \\ \bottomrule[1.0pt]</span><br><span class="line">  \end&#123;tabular&#125;</span><br><span class="line">\end&#123;table&#125;</span><br></pre></td></tr></table></figure>
+<p>注意<code>ccccc</code>，有多少列就要有多少个ccc。</p>
+<p>图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;figure&#125;[!htpb]</span><br><span class="line">    \centering</span><br><span class="line">  \includegraphics[width=120mm]&#123;Figures/pic1.jpg&#125;\\</span><br><span class="line">  \caption&#123;pic1&#125;\label&#123;Fig.pic1&#125;</span><br><span class="line">\end&#123;figure&#125;</span><br></pre></td></tr></table></figure>
+<p>引用图表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\ref&#123;Fig.pic1&#125; </span><br><span class="line">\ref&#123;Tab.ThreeLines&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\bibitem&#123;Perner-171&#125; Perner, P., Mining Sparse and Big Data by Case-based Reasoning. Procedia Computer Science, 2014. 35(0): p. 19-33.</span><br></pre></td></tr></table></figure>
+<p>文中引用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\cite&#123;Perner-171&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/排版/" rel="tag">#排版</a>
+          
+            <a href="/tags/TeXLive/" rel="tag">#TeXLive</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/10/2016-11-10 【Matlab】编程风格摘录/" rel="next" title="【Matlab】编程风格摘录">
+                <i class="fa fa-chevron-left"></i> 【Matlab】编程风格摘录
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/04/2016-12-04 【工具】文字识别软件(OCR) ABBYY Finereader 11简单使用/" rel="prev" title="【工具】文字识别软件(OCR) ABBYY Finereader 11简单使用">
+                【工具】文字识别软件(OCR) ABBYY Finereader 11简单使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/04/2016-12-04 【工具】排版软件TeX Live 2016的简单使用/"
+           data-title="【工具】排版软件TeX Live 2016的简单使用" data-url="http://shanchuantian.com/2016/12/04/2016-12-04 【工具】排版软件TeX Live 2016的简单使用/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="itsc" />
+          <p class="site-author-name" itemprop="name">itsc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shanchuantian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/shanchuantian/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-film"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/shanchuantian" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一些问题"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4E00;&#x4E9B;&#x95EE;&#x9898;" class="headerlink" title="&#x4E00;&#x4E9B;&#x95EE;&#x9898;"></a>&#x4E00;&#x4E9B;&#x95EE;&#x9898;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何获取TeX-Live-2016？"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5982;&#x4F55;&#x83B7;&#x53D6;TeX-Live-2016&#xFF1F;" class="headerlink" title="&#x5982;&#x4F55;&#x83B7;&#x53D6;TeX Live 2016&#xFF1F;"></a>&#x5982;&#x4F55;&#x83B7;&#x53D6;TeX Live 2016&#xFF1F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我的使用情况"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x6211;&#x7684;&#x4F7F;&#x7528;&#x60C5;&#x51B5;" class="headerlink" title="&#x6211;&#x7684;&#x4F7F;&#x7528;&#x60C5;&#x51B5;"></a>&#x6211;&#x7684;&#x4F7F;&#x7528;&#x60C5;&#x51B5;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#章节"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x7AE0;&#x8282;" class="headerlink" title="&#x7AE0;&#x8282;"></a>&#x7AE0;&#x8282;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学符号及公式"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x6570;&#x5B66;&#x7B26;&#x53F7;&#x53CA;&#x516C;&#x5F0F;" class="headerlink" title="&#x6570;&#x5B66;&#x7B26;&#x53F7;&#x53CA;&#x516C;&#x5F0F;"></a>&#x6570;&#x5B66;&#x7B26;&#x53F7;&#x53CA;&#x516C;&#x5F0F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表格与图形"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#&#x8868;&#x683C;&#x4E0E;&#x56FE;&#x5F62;" class="headerlink" title="&#x8868;&#x683C;&#x4E0E;&#x56FE;&#x5F62;"></a>&#x8868;&#x683C;&#x4E0E;&#x56FE;&#x5F62;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a>&#x53C2;&#x8003;&#x6587;&#x732E;</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">itsc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shanchuancomment"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+
+</body>
+</html>

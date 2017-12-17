@@ -1,0 +1,817 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Matlabb," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="参考自《MATLAB 编程风格指南》Richard Johnson, 2002. Genial翻译. 我将对自己比较重要的规则列出，后续用之。">
+<meta name="keywords" content="Matlabb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Matlab】编程风格摘录">
+<meta property="og:url" content="http://shanchuantian.com/2016/11/10/2016-11-10 【Matlab】编程风格摘录/index.html">
+<meta property="og:site_name" content="你干吗在乎别人怎么想">
+<meta property="og:description" content="参考自《MATLAB 编程风格指南》Richard Johnson, 2002. Genial翻译. 我将对自己比较重要的规则列出，后续用之。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-03-01T09:00:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Matlab】编程风格摘录">
+<meta name="twitter:description" content="参考自《MATLAB 编程风格指南》Richard Johnson, 2002. Genial翻译. 我将对自己比较重要的规则列出，后续用之。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://shanchuantian.com/2016/11/10/2016-11-10 【Matlab】编程风格摘录/"/>
+
+
+  <title> 【Matlab】编程风格摘录 | 你干吗在乎别人怎么想 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">你干吗在乎别人怎么想</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【Matlab】编程风格摘录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-10T00:00:00+08:00" content="2016-11-10">
+              2016-11-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Matlabb/" itemprop="url" rel="index">
+                    <span itemprop="name">Matlabb</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/10/2016-11-10 【Matlab】编程风格摘录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/10/2016-11-10 【Matlab】编程风格摘录/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考自《MATLAB 编程风格指南》Richard Johnson, 2002. Genial翻译.</p>
+<p>我将对自己比较重要的规则列出，后续用之。</p>
+<a id="more"></a>
+<p>[TOC]</p>
+<h1 id="1-命名规则"><a href="#1-命名规则" class="headerlink" title="1.命名规则"></a>1.命名规则</h1><h2 id="1-1-变量"><a href="#1-1-变量" class="headerlink" title="1.1.变量"></a>1.1.变量</h2><p>变量名一律小写, 单词之间用下划线连接。</p>
+<p><strong>循环变量</strong> </p>
+<ul>
+<li>整数时，以$ i、j、k  、l、m$为前缀，应该不会有循环超过5层。</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i_File = <span class="number">1</span> : n_Files</span><br><span class="line">	<span class="keyword">for</span> j_Position = <span class="number">1</span> : n_Positions</span><br><span class="line">		...</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>不知道该给循环变量起什么名字的时候，用index，正好第一个字母是i。i、j在Matlab中表示虚数单位，有复数出现时避免i、j，我觉得自己应该很少入接触到复数，暂不考虑复数。</p>
+<ul>
+<li>双精度数时，用 x，y 和 z 。</li>
+</ul>
+<p><strong>普通变量</strong></p>
+<ul>
+<li>前缀 n 应该用在作为数值对象的申明的时候 ，例如：n_files。</li>
+<li>包含多个个体的变量 ，加后缀array。例如：point, point_array。</li>
+</ul>
+<p><strong>常量</strong></p>
+<p>名称前加 <code>k</code>: kDaysInAWeek. 且除去开头的 <code>k</code> 之外每个单词开头字母均大写。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kDaysInAWeek = <span class="number">7</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="1-2函数"><a href="#1-2函数" class="headerlink" title="1.2函数"></a>1.2函数</h2><ul>
+<li>函数名应该采用首字母大写的驼峰式命名法，以此和变量名区分，例如：GetName (), ComputeTotalWidth ()。</li>
+<li>函数名应该是具有意义的，使用完整的单词！</li>
+</ul>
+<h1 id="2-文件与程序结构"><a href="#2-文件与程序结构" class="headerlink" title="2.文件与程序结构"></a>2.文件与程序结构</h1><h2 id="2-1模块化"><a href="#2-1模块化" class="headerlink" title="2.1模块化"></a>2.1模块化</h2><ul>
+<li>超过编辑器两屏幕的代码都应该考虑进行分割。</li>
+<li>所有的子函数和所有的函数都应该只把一件事情做好。</li>
+<li>任何在多个 m 文件中出现的代码块都应该考虑用函数的形式封装起来 。</li>
+<li>只被另外一个函数调用的函数应该作为一个子函数写在同一个文件中。 这使得代码更加利于理解与维护。 </li>
+</ul>
+<h1 id="3-基本语句"><a href="#3-基本语句" class="headerlink" title="3.基本语句"></a>3.基本语句</h1><p><strong>循环语句</strong> </p>
+<ul>
+<li>循环变量应该在循环开始前立即被赋值 ：</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">refult = <span class="built_in">zeros</span>( n_entries,<span class="number">1</span>); <span class="comment">% 预先分配空间</span></span><br><span class="line"><span class="keyword">for</span> index = <span class="number">1</span> :n_entries</span><br><span class="line">    result(index) = foo(index);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在长的嵌套循环的 end 命令行添加注释 。</li>
+</ul>
+<p><strong>条件语句</strong></p>
+<ul>
+<li>应该避免复杂的条件表示式，而采用临时逻辑变量进行替代 。</li>
+</ul>
+<p>避免使用： </p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(value &gt;= lower_limit)&amp; (values &lt;= upper_limit) &amp; ~ismember(value, value_array)</span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>而应该用如下的方式代替：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">is_valid = (value = lower_limit)&amp; (values &lt;= upper_limit);</span><br><span class="line">isNew = ~ismember(value, value_array)</span><br><span class="line"><span class="keyword">if</span> (is_valid &amp; isNew) <span class="comment">% 条件看起来简单多了</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在 if else 结构的时候，发生较频繁的事件应该放在 if 部分，例外情况放在 else 部分。</li>
+<li>尽量在表达式中少用数字，可能会改变的数字应该用常数代替。</li>
+<li>浮点数的比较应该要小心，例如0.0025是计算机中并不按照字面值来存储的，可能是一个有很多小数位的近似值0.002499999999999之类的，用来比较可能不是我们想要的结果。</li>
+</ul>
+<h1 id="4-布局、注释与文档"><a href="#4-布局、注释与文档" class="headerlink" title="4.布局、注释与文档"></a>4.布局、注释与文档</h1><p><strong>长度与缩排</strong></p>
+<ul>
+<li>应该将代码内容控制在前 80 列之内，在恰当的地方应该将行进行切分。</li>
+<li>基本缩排采用Matlab默认的 4 个空格</li>
+</ul>
+<p><strong>空白空格</strong></p>
+<ul>
+<li>在 =，&amp;，与 | 前后加上空格，常规的操作符两边可以加上空格：</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">simple_average=(first_term+second_term+third_term)/three;         <span class="comment">% 弃用</span></span><br><span class="line">simple_average = (first_term + second_term + third_term) / three; <span class="comment">% 采用</span></span><br></pre></td></tr></table></figure>
+<p>我觉得第上面的第二行更清楚一些。</p>
+<ul>
+<li>逗号后面可以加上空格，主要在函数的参数中：</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo(alpha,<span class="built_in">beta</span>,<span class="built_in">gamma</span>)   <span class="comment">% 弃用</span></span><br><span class="line">foo(alpha, <span class="built_in">beta</span>, <span class="built_in">gamma</span>) <span class="comment">% 采用</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>一个块（block）内部的一个逻辑组语句应该通过一个空白行将其分隔开。例如：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x1 = ...</span><br><span class="line">y1 = ...</span><br><span class="line">x2 = ...</span><br><span class="line">y2 = ...</span><br><span class="line"></span><br><span class="line">GaussianFilter(...);</span><br><span class="line">plot(...);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>块（blocks）之间应该用<code>*</code> <code>-</code>分隔，<code>*</code>开关，<code>-</code>结尾。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">function1</span><br><span class="line"></span><br><span class="line">% ********************注释**********************</span><br><span class="line">function2</span><br><span class="line">% ---------------------------------------------</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过排列成行列整齐的方式来加强可读性</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">weithed_population = (doctor_weight * n_doctors) + ...</span><br><span class="line">                     (layer_weight * n_lawyers) + ...</span><br><span class="line">                     (chief_weight * n_chiefs);</span><br></pre></td></tr></table></figure>
+<p>Matlab的自动对齐功能<code>ctrl+i</code>会破坏这种结构，<strong>禁止对所有代码使用<code>ctrl+i</code></strong> 。</p>
+<p><strong>注释</strong></p>
+<ul>
+<li>在写代码的同时就加上注释 </li>
+<li>函数头部的注释</li>
+</ul>
+<ol>
+<li>将其分为两个块，第一个描述函数，第二个描述相关信息，比如作者、修改时间等。因为<code>help</code>只会输出函数头的第一个块，我们不希望输出作者等相关信息。</li>
+<li>描述部分，函数语句、功能、输入输出、副作用 。</li>
+<li>注释语言，看情况，如果者是中国人看则用中文，有外国人看则用英文。</li>
+</ol>
+<p>例子：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% GaussianFilter :对一维信号的高斯滤波，头尾r/2的信号不进行滤波</span></span><br><span class="line"><span class="comment">% y_filted = Gaussianfilter(r, sigma, y)</span></span><br><span class="line"><span class="comment">% r        :高斯模板大小，推荐奇数</span></span><br><span class="line"><span class="comment">% sigma    :标准差</span></span><br><span class="line"><span class="comment">% y        :需要进行高斯滤波的序列</span></span><br><span class="line"><span class="comment">% y_filted :进行高斯滤波后的序列</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% author : TSC</span></span><br><span class="line"><span class="comment">% time   : 2016-11-11</span></span><br><span class="line"><span class="comment">% email  : 292936085#qq.com(将#替换为@)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y_filted</span> = <span class="title">Gaussianfilter</span><span class="params">(r, sigma, y)</span></span></span><br></pre></td></tr></table></figure>
+<p>注意：按顺序，功能、函数语句、输入参数、输出参数、注意事项；空一行，author、time、email。尽量对齐，冒号后空一格。</p>
+<p><strong>文档</strong></p>
+<p>稍微大一点的工程需要<strong>先写文档</strong>，包括：代码打算干什么（要求），它是如何工作的（设计），它依赖于什其他什么函数以及怎么被其他代码调用（接口），以及它是如何测试的等。 </p>
+<p>注：如果文档中有没有提到的，也找不到统一的规则，那么参考Google C++风格，也许适用。<a href="http://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/contents/" target="_blank" rel="noopener">C++ 风格指南 - 内容目录</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Matlabb/" rel="tag">#Matlabb</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/07/2016-11-17【Matlab】用matlab实现一维信号的高斯滤波/" rel="next" title="【Matlab】用matlab实现一维信号的高斯滤波">
+                <i class="fa fa-chevron-left"></i> 【Matlab】用matlab实现一维信号的高斯滤波
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/04/2016-12-04 【工具】排版软件TeX Live 2016的简单使用/" rel="prev" title="【工具】排版软件TeX Live 2016的简单使用">
+                【工具】排版软件TeX Live 2016的简单使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/10/2016-11-10 【Matlab】编程风格摘录/"
+           data-title="【Matlab】编程风格摘录" data-url="http://shanchuantian.com/2016/11/10/2016-11-10 【Matlab】编程风格摘录/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="itsc" />
+          <p class="site-author-name" itemprop="name">itsc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shanchuantian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/shanchuantian/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-film"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/shanchuantian" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-命名规则"><span class="nav-number">1.</span> <span class="nav-text"><a href="#1-&#x547D;&#x540D;&#x89C4;&#x5219;" class="headerlink" title="1.&#x547D;&#x540D;&#x89C4;&#x5219;"></a>1.&#x547D;&#x540D;&#x89C4;&#x5219;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-变量"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#1-1-&#x53D8;&#x91CF;" class="headerlink" title="1.1.&#x53D8;&#x91CF;"></a>1.1.&#x53D8;&#x91CF;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2函数"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#1-2&#x51FD;&#x6570;" class="headerlink" title="1.2&#x51FD;&#x6570;"></a>1.2&#x51FD;&#x6570;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-文件与程序结构"><span class="nav-number">2.</span> <span class="nav-text"><a href="#2-&#x6587;&#x4EF6;&#x4E0E;&#x7A0B;&#x5E8F;&#x7ED3;&#x6784;" class="headerlink" title="2.&#x6587;&#x4EF6;&#x4E0E;&#x7A0B;&#x5E8F;&#x7ED3;&#x6784;"></a>2.&#x6587;&#x4EF6;&#x4E0E;&#x7A0B;&#x5E8F;&#x7ED3;&#x6784;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1模块化"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#2-1&#x6A21;&#x5757;&#x5316;" class="headerlink" title="2.1&#x6A21;&#x5757;&#x5316;"></a>2.1&#x6A21;&#x5757;&#x5316;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-基本语句"><span class="nav-number">3.</span> <span class="nav-text"><a href="#3-&#x57FA;&#x672C;&#x8BED;&#x53E5;" class="headerlink" title="3.&#x57FA;&#x672C;&#x8BED;&#x53E5;"></a>3.&#x57FA;&#x672C;&#x8BED;&#x53E5;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-布局、注释与文档"><span class="nav-number">4.</span> <span class="nav-text"><a href="#4-&#x5E03;&#x5C40;&#x3001;&#x6CE8;&#x91CA;&#x4E0E;&#x6587;&#x6863;" class="headerlink" title="4.&#x5E03;&#x5C40;&#x3001;&#x6CE8;&#x91CA;&#x4E0E;&#x6587;&#x6863;"></a>4.&#x5E03;&#x5C40;&#x3001;&#x6CE8;&#x91CA;&#x4E0E;&#x6587;&#x6863;</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">itsc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shanchuancomment"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+
+</body>
+</html>
